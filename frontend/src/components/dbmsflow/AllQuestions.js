@@ -6,14 +6,19 @@ import { Link } from "react-router-dom";
 import { stringAvatar } from "../../utils/Avatar";
 
 function AllQuestions({ data }) {
+  // Function to truncate text to a specified length
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
   let tags = [];
   try {
-    tags = data?.tags?.[0] ? JSON.parse(data.tags[0]) : [];
-    // console.log();
+    // Check if data.tags[0] is a string and parse it, else use it as an array
+    if (typeof data?.tags[0] === "string") {
+      tags = JSON.parse(data?.tags[0]);
+    } else {
+      tags = data?.tags || [];
+    }
   } catch (error) {
     console.error("Error parsing tags:", error);
   }
@@ -28,7 +33,7 @@ function AllQuestions({ data }) {
               <span>votes</span>
             </div>
             <div className="all-option">
-              <p>{data?.answerDetails?.length ||  0}</p>
+              <p>{data?.answerDetails?.length || 0}</p>
               <span>answers</span>
             </div>
             <div className="all-option">
@@ -37,22 +42,14 @@ function AllQuestions({ data }) {
           </div>
         </div>
         <div className="question-answer">
-          <Link to={`/question?q=${data?._id || ""}`}>{data?.title || "Untitled"}</Link>
+          <Link to={`/question?q=${data?._id || ""}`}>
+            {data?.title || "Untitled"}
+          </Link>
 
-          {/* <a href=>{data.title}</a> */}
-
-          <div
-            style={{
-              maxWidth: "90%",
-            }}
-          >
+          <div style={{ maxWidth: "90%" }}>
             <div>{ReactHtmlParser(truncate(data?.body || "", 200))}</div>
           </div>
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
+          <div style={{ display: "flex" }}>
             {tags.map((_tag, index) => (
               <p
                 key={index}
@@ -71,9 +68,7 @@ function AllQuestions({ data }) {
             <small>{data?.create_at || "Unknown date"}</small>
             <div className="auth-details">
               <Avatar {...stringAvatar(data?.user?.displayName || "Natalie lee")} />
-              <p>
-                {data?.user?.displayName || "Natalie lee"}
-              </p>
+              <p>{data?.user?.displayName || "Natalie lee"}</p>
             </div>
           </div>
         </div>

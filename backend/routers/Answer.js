@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
       res.status(201).send(doc);
     })
     .catch((err) => {
+      console.log(err);
       res.status(400).send({
         message: "Answer not added successfully",
       });

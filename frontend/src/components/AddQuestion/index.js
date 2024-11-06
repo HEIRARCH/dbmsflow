@@ -86,7 +86,7 @@ function Index() {
       await axios
         .post("/api/question", bodyJSON)
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           alert("Question added successfully");
           history.push("/");
         })
@@ -107,14 +107,14 @@ function Index() {
               <div className="title">
                 <h3>Title</h3>
                 <small>
-                  Be specific and imagine you’re asking a question to another
+                  Be specific and imagine you're asking a question to another
                   person
                 </small>
                 <input
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   type="text"
-                  placeholder="e.g Is there an R function for finding teh index of an element in a vector?"
+                  placeholder="e.g Is there an R function for finding the index of an element in a vector?"
                 />
               </div>
             </div>

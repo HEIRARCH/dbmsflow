@@ -11,7 +11,7 @@ function Index() {
     async function getQuestion() {
       await axios.get("/api/question").then((res) => {
         setQuestions(res.data.reverse());
-        // console.log(res.data)
+        console.log(res.data)
       });
     }
     getQuestion();

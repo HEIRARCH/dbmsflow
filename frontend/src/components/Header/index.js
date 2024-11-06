@@ -25,7 +25,7 @@ function Header() {
 
     for (i = 0; i < 3; i += 1) {
       const value = (hash >> (i * 8)) & 0xff;
-      color += `00${value.toString(16)}`.substr(-2);
+      color += `00${value.toString(16)}`.slice(-2);
     }
     /* eslint-enable no-bitwise */
 

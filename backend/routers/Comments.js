@@ -17,11 +17,13 @@ router.post("/:id", async (req, res) => {
         });
       })
       .catch((err) => {
+        console.log(err);
         res.status(400).send({
           message: "Bad format",
         });
       });
   } catch (err) {
+    console.log(err);
     res.status(500).send({
       message: "Error while adding comments",
     });

@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../dbmsflow/Sidebar";
 import "./index.css";
+import "../dbmsflow/css/index.css"
 import MainQuestion from "./MainQuestion";
 
 function Index() {

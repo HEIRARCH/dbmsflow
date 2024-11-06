@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
   const questionData = new QuestionDB({
     title: req.body.title,
     body: req.body.body,
-    tags: req.body.tag,
+    tags: req.body.tags,
     user: req.body.user,
   });
 
@@ -17,37 +17,18 @@ router.post("/", async (req, res) => {
       res.status(201).send(doc);
     })
     .catch((err) => {
+      console.log(err);
       res.status(400).send({
         message: "Question not added successfully",
       });
     });
 });
 
-// router.get("/", async (req, res) => {
-//   const questions = await QuestionDB.find({});
-
-//   try {
-//     if (questions) {
-//       res.status(200).send({ questions });
-//     } else {
-//       res.status(400).send({
-//         message: "question not found",
-//       });
-//     }
-//   } catch (e) {
-//     res.status(400).send({
-//       message: "Error in getting question",
-//     });
-//   }
-// });
-
 router.get("/:id", async (req, res) => {
   try {
-    // const question = await QuestionDB.findOne({ _id: req.params.id });
-    // res.status(200).send(question);
     QuestionDB.aggregate([
       {
-        $match: { _id: mongoose.Types.ObjectId(req.params.id) },
+        $match: { _id: new mongoose.Types.ObjectId(req.params.id) },
       },
       {
         $lookup: {
@@ -66,7 +47,6 @@ router.get("/:id", async (req, res) => {
                 _id: 1,
                 user: 1,
                 answer: 1,
-                // created_at: 1,
                 question_id: 1,
                 created_at: 1,
               },
@@ -93,8 +73,6 @@ router.get("/:id", async (req, res) => {
                 question_id: 1,
                 user: 1,
                 comment: 1,
-                // created_at: 1,
-                // question_id: 1,
                 created_at: 1,
               },
             },
@@ -102,17 +80,9 @@ router.get("/:id", async (req, res) => {
           as: "comments",
         },
       },
-      // {
-      //   $unwind: {
-      //     path: "$answerDetails",
-      //     preserveNullAndEmptyArrays: true,
-      //   },
-      // },
       {
         $project: {
           __v: 0,
-          // _id: "$_id",
-          // answerDetails: { $first: "$answerDetails" },
         },
       },
     ])
@@ -125,6 +95,7 @@ router.get("/:id", async (req, res) => {
         res.status(400).send(error);
       });
   } catch (err) {
+    console.log(err);
     res.status(400).send({
       message: "Question not found",
     });
@@ -153,10 +124,8 @@ router.get("/", async (req, res) => {
           {
             $project: {
               _id: 1,
-              // user_id: 1,
               comment: 1,
               created_at: 1,
-              // question_id: 1,
             },
           },
         ],
@@ -177,29 +146,16 @@ router.get("/", async (req, res) => {
           },
           {
             $project: {
-              _id: 1,
-              // user_id: 1,
-              // answer: 1,
-              // created_at: 1,
-              // question_id: 1,
-              // created_at: 1,
+              _id: 1, 
             },
-          },
+          }
         ],
         as: "answerDetails",
       },
     },
-    // {
-    //   $unwind: {
-    //     path: "$answerDetails",
-    //     preserveNullAndEmptyArrays: true,
-    //   },
-    // },
     {
       $project: {
         __v: 0,
-        // _id: "$_id",
-        // answerDetails: { $first: "$answerDetails" },
       },
     },
   ])

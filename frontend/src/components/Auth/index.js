@@ -29,7 +29,7 @@ function Index() {
     signInWithPopup(auth, provider)
       .then((res) => {
         setLoading(false);
-        // console.log(res);  
+        console.log(res);  
         history.push("/");
         // return (
         //   <>
@@ -56,7 +56,7 @@ function Index() {
     } else {
       signInWithEmailAndPassword(auth, email, password)
         .then((res) => {
-          // console.log(res);  
+          console.log(res);  
           history.push("/");
           setLoading(false);
         })
@@ -81,7 +81,7 @@ function Index() {
     } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then((res) => {
-          // console.log(res); 
+          console.log(res); 
           history.push("/");
           setLoading(false);
         })
@@ -95,7 +95,7 @@ function Index() {
   return (
     <div className="auth">
       <div className="auth-container">
-        <p>Add another way to log in using any of the following services. </p>
+        <p>Log in using any of the following services.</p>
         <div className="sign-options">
           <div onClick={handleGoogleSignIN} className="single-option">
             <img src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg' alt="Google" />

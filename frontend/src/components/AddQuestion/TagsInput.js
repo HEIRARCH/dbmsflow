@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
-import Paper from "@material-ui/core/Paper";
-import TagFacesIcon from "@material-ui/icons/TagFaces";
+import Chip from '@mui/material/Chip';
+import Paper from '@mui/material/Paper';
+import TagFacesIcon from '@mui/icons-material/TagFaces';
 
 const useStyles = makeStyles((theme) => ({
   root: {
