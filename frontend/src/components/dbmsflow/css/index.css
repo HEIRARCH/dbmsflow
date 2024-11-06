@@ -1,0 +1,11 @@
+.dbms-index {
+  display: flex;
+  max-height: 85vh;
+  min-width: -webkit-fill-available;
+}
+
+.dbms-index-content {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
