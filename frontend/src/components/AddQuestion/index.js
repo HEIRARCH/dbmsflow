@@ -5,7 +5,7 @@ import "react-quill/dist/quill.snow.css"; // ES6
 import "./index.css";
 import Editor from "react-quill/lib/index.js";
 import axios from "axios";
-import { TagsInput } from "react-tag-input-component";
+import TagInput from './TagsInput';
 import { selectUser } from "../../features/userSlice";
 import { useHistory } from "react-router-dom";
 // import ChipsArray from "./TagsInput";
@@ -66,8 +66,9 @@ function Index() {
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [tag, setTag] = useState([]);
+  const [tags, setTags] = useState([]);
   const history = useHistory();
+  const [loading, setLoading] = useState(false)
 
   const handleQuill = (value) => {
     setBody(value);
@@ -77,10 +78,11 @@ function Index() {
     e.preventDefault();
 
     if (title !== "" && body !== "") {
+      setLoading(true)
       const bodyJSON = {
         title: title,
         body: body,
-        tag: JSON.stringify(tag),
+        tags: tags,
         user: user,
       };
       await axios
@@ -88,10 +90,12 @@ function Index() {
         .then((res) => {
           console.log(res.data);
           alert("Question added successfully");
+          setLoading(false)
           history.push("/");
         })
         .catch((err) => {
           console.log(err);
+          setLoading(false)
         });
     }
   };
@@ -148,13 +152,7 @@ function Index() {
                   type="text"
                   placeholder="e.g. (asp.net-mvc php react json)"
                 /> */}
-
-                <TagsInput
-                  value={tag}
-                  onChange={setTag}
-                  name="fruits"
-                  placeHolder="press enter to add new tag"
-                />
+                <TagInput tags={tags} setTags={setTags} />
 
                 {/* <ChipsArray /> */}
               </div>
@@ -162,8 +160,8 @@ function Index() {
           </div>
         </div>
 
-        <button onClick={handleSubmit} className="button">
-          Add your question
+        <button disabled={loading} onClick={handleSubmit} className="button">
+          {loading ? "Adding Question..." : "Add your question"}
         </button>
       </div>
     </div>

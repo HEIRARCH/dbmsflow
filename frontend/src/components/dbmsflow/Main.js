@@ -48,7 +48,7 @@ function Main({ questions }) {
         </div>
         <div className="questions">
           {questions?.map((_q) => (
-            <div className="question">
+            <div key={_q._id || _q.index} className="question">
               <AllQuestions data={_q} />
             </div>
           ))}

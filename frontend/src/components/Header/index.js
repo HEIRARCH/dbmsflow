@@ -46,7 +46,7 @@ function Header() {
         <div className="header-left">
           <Link to="/">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/220px-Stack_Overflow_logo.svg.png"
+              src="/logo.svg"
               alt="logo"
             />
           </Link>

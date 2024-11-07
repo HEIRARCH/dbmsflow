@@ -27,15 +27,14 @@ header {
 }
 
 .header-left > a > img {
-  width: 150px;
+  width: 100px;
   object-fit: contain;
   padding: 0px 0px;
 }
 
 .header-left > a > img:hover {
-  background-color: #ddd;
+  background-color: #dddddd54;
   cursor: pointer;
-  padding: 10px 0px;
 }
 
 .header-left > h3 {

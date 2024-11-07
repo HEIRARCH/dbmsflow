@@ -11,18 +11,11 @@ function AllQuestions({ data }) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
-  let tags = [];
-  try {
-    // Check if data.tags[0] is a string and parse it, else use it as an array
-    if (typeof data?.tags[0] === "string") {
-      tags = JSON.parse(data?.tags[0]);
-    } else {
-      tags = data?.tags || [];
-    }
-  } catch (error) {
-    console.error("Error parsing tags:", error);
-  }
-  
+  const tags = Array.isArray(data?.tags) ? data.tags : [];  
+
+  // Log the tags to check structure
+  console.log("Tags array:", tags);
+
   return (
     <div className="all-questions">
       <div className="all-questions-container">
@@ -52,7 +45,7 @@ function AllQuestions({ data }) {
           <div style={{ display: "flex" }}>
             {tags.map((_tag, index) => (
               <p
-                key={index}
+                key={index} // Unique key for each tag element
                 style={{
                   margin: "10px 5px",
                   padding: "5px 10px",
