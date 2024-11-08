@@ -6,15 +6,13 @@ import { Link } from "react-router-dom";
 import { stringAvatar } from "../../utils/Avatar";
 
 function AllQuestions({ data }) {
-  // Function to truncate text to a specified length
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
   const tags = Array.isArray(data?.tags) ? data.tags : [];  
 
-  // Log the tags to check structure
-  console.log("Tags array:", tags);
+  // console.log("Tags array:", tags);
 
   return (
     <div className="all-questions">
@@ -58,9 +56,9 @@ function AllQuestions({ data }) {
             ))}
           </div>
           <div className="author">
-            <small>{data?.create_at || "Unknown date"}</small>
+            <small>{data?.created_at || "Unknown date"}</small>
             <div className="auth-details">
-              <Avatar {...stringAvatar(data?.user?.displayName || "Natalie lee")} />
+              <Avatar src={data?.user?.photo}  {...stringAvatar(data?.user?.displayName || "Natalie lee")} />
               <p>{data?.user?.displayName || "Natalie lee"}</p>
             </div>
           </div>

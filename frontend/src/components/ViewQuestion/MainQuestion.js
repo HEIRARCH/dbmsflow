@@ -80,15 +80,17 @@ function MainQuestion() {
     async function getFunctionDetails() {
       try {
         const res = await axios.get(`/api/question/${id}`);
+        console.log("Response Data for ID:", id, res.data);
         const data = res.data[0];
         console.log("Fetched Data:", data); // For debugging
+        if (!data) throw new Error("No data found for this question"); 
         setQuestionData({
           comments: data.comments || [],
           answerDetails: data.answerDetails || [],
           ...data,
         });
       } catch (err) {
-        console.log(err);
+        console.error("Error fetching question details:", err);
         setError("Failed to fetch question details.");
         setQuestionData({
           comments: [],
@@ -120,7 +122,7 @@ function MainQuestion() {
   const handleSubmit = async () => {
     const body = {
       question_id: id,
-      answer: answer || "",
+      answer: answer,
       user: user,
     };
     const config = {
@@ -186,7 +188,7 @@ function MainQuestion() {
             <p>
               Viewed<span>43times</span>
             </p>
-          </div>
+          </div> 
         </div>
         <div className="all-questions">
           <div className="all-questions-container">
@@ -207,7 +209,7 @@ function MainQuestion() {
                   asked {new Date(questionData?.created_at).toLocaleString()}
                 </small>
                 <div className="auth-details">
-                  <Avatar {...stringAvatar(questionData?.user?.displayName)} />
+                  <Avatar src={questionData?.user?.photo} {...stringAvatar(questionData?.user?.displayName || "User")} />
                   <p>
                     {questionData?.user?.displayName
                       ? questionData?.user?.displayName
@@ -294,13 +296,13 @@ function MainQuestion() {
                 </div>
               </div>
               <div className="question-answer">
-                {ReactHtmlParser(_q.answer)}
+                {ReactHtmlParser(_q?.answer)}
                 <div className="author">
                   <small>
-                    asked {new Date(_q.created_at).toLocaleString()}
+                    asked {new Date(_q?.created_at).toLocaleString()}
                   </small>
                   <div className="auth-details">
-                    <Avatar {...stringAvatar(_q?.user?.displayName)} />
+                    <Avatar src={_q?.user?.photo} {...stringAvatar(_q?.user?.displayName || "User")} />
                     <p>
                       {_q?.user?.displayName
                         ? _q?.user?.displayName
@@ -335,6 +337,7 @@ function MainQuestion() {
         />
       </div>
       <button
+        type="submit"
         onClick={handleSubmit}
         style={{
           marginTop: "100px",
@@ -347,4 +350,4 @@ function MainQuestion() {
   );
 }
 
-export default MainQuestion;
+export default MainQuestion; 

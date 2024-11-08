@@ -35,7 +35,7 @@ function App() {
         dispatch(logout());
       }
       setLoading(false)
-      console.log(authUser);
+      // console.log(authUser);
     });
   }, [dispatch]);
 
